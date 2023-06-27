@@ -15,11 +15,10 @@ const Nav = () => {
           </li>
           <li>
             <Link
-              className="bg-primary md:px-10 px-5 text-xs py-2 rounded-lg text-white"
+              className=" md:px-10 px-5 text-xs py-2 rounded-lg text-txt-main"
               to="/login"
             >
               Login
-              
             </Link>
           </li>
         </ul>

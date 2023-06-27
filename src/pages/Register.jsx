@@ -1,6 +1,52 @@
 import { Link } from "react-router-dom";
-
+import { FaGoogle } from "react-icons/fa";
+import { loginWithPopup, registerUser } from "../app/users";
+import { useState } from "react";
 const Register = () => {
+  const [user, setUser] = useState({
+    password: "",
+    email: "",
+    name: "",
+  });
+
+  const handleUserInput = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
+  const handleEmailAndPasswordRegister = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await registerUser({ ...user });
+      if (!response) {
+        console.log(first);
+      }
+      console.log(response);
+    } catch (error) {
+      // Handle errors
+      console.log(error);
+    }
+  };
+
+  const handleSignInWithPopup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await loginWithPopup();
+      if (!response) {
+        // Error
+      }
+    } catch (error) {
+      // Handle errors
+    }
+  };
+
   return (
     <div className="w-screen h-screen flex flex-row text text-txt-main">
       <div className="w-full px-5 md:w-[50%] h-full flex flex-col items-center justify-center">
@@ -14,7 +60,11 @@ const Register = () => {
           <p className="text-sm my-4">
             Find the best tooms in the North at an affordable prices
           </p>
-          <button className="mt-10 mb-5 text-gray-400 border border-gray-400 w-full rounded-md text-sm py-3">
+          <button
+            onClick={handleSignInWithPopup}
+            className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full rounded-md text-sm py-3"
+          >
+            <FaGoogle />
             Continue with Google
           </button>
           <form>
@@ -23,6 +73,8 @@ const Register = () => {
                 Name
               </label>
               <input
+                name="name"
+                onChange={handleUserInput}
                 placeholder="Enter your name"
                 className="outline-none text-sm px-4 py-4 bg-[#D3791810] block rounded-lg w-full"
                 type="email"
@@ -33,6 +85,8 @@ const Register = () => {
                 Email
               </label>
               <input
+                name="email"
+                onChange={handleUserInput}
                 placeholder="Enter your email"
                 className="outline-none text-sm px-4 py-4 bg-[#D3791810] block rounded-lg w-full"
                 type="email"
@@ -43,13 +97,18 @@ const Register = () => {
                 Password
               </label>
               <input
+                name="password"
+                onChange={handleUserInput}
                 placeholder="Enter your password"
                 className="outline-none text-sm px-4 py-4 bg-[#D3791810] block rounded-lg w-full"
                 type="password"
               />
             </div>
-            <button className="text-sm px-4 py-4 bg-primary text-white text-center my-3 block rounded-lg w-full">
-              Login
+            <button
+              onClick={handleEmailAndPasswordRegister}
+              className="text-sm px-4 py-4 bg-secondary text-white text-center my-3 block rounded-lg w-full"
+            >
+              Register
             </button>
 
             <Link className="text-gray-400 text-xs" to="/login">

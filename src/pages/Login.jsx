@@ -1,5 +1,27 @@
 import { Link } from "react-router-dom";
+import { FaGoogle } from "react-icons/fa";
 const Login = () => {
+  const [user, setUser] = useState({
+    password: "",
+    email: "",
+  });
+
+  const handleUserInput = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
+  const handleEmailAndPasswordLogin = (event) => {
+    event.preventDefault();
+  };
+
+  const handleGoogleLogin = (event) => {};
+
   return (
     <div className="w-screen h-screen flex flex-row text text-txt-main">
       <div className="w-full px-5 md:w-[50%] h-full flex flex-col items-center justify-center">
@@ -11,7 +33,8 @@ const Login = () => {
               <span className="text-secondary">Tad</span>Lodge
             </span>
           </p>
-          <button className="mt-10 mb-5 text-gray-400 border border-gray-400 w-full rounded-md text-sm py-3">
+          <button className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full rounded-md text-sm py-3">
+            <FaGoogle />
             Login with Google
           </button>
           <form>
@@ -35,7 +58,7 @@ const Login = () => {
                 type="password"
               />
             </div>
-            <button className="text-sm px-4 py-4 bg-primary text-white text-center my-3 block rounded-lg w-full">
+            <button className="text-sm px-4 py-4 bg-secondary text-white text-center my-3 block rounded-lg w-full">
               Login
             </button>
 

@@ -7,50 +7,74 @@ import Register from "./pages/Register";
 import Rooms from "./pages/Rooms";
 import Room from "./pages/Room";
 import Layout from "./components/Layout";
+import RootLayout from "./components/RootLayout";
+import ClientLayout from "./components/ClientLayout";
 import Reservations from "./pages/admin/Reservations";
 import AdminRooms from "./pages/admin/Rooms";
 import Users from "./pages/admin/Users";
+import Account from "./pages/client/Account";
+import ClientReservations from "./pages/client/Reservations";
 import Settings from "./pages/admin/Settings";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/rooms",
-    element: <Rooms />,
-  },
-  {
-    path: "/rooms/:id",
-    element: <Room />,
-  },
-  {
-    path: "/admin",
-    element: <Layout />,
+    element: <RootLayout />,
     children: [
       {
-        path: "/admin/reservations",
-        element: <Reservations />,
+        path: "/",
+        element: <Home />,
       },
       {
-        path: "/admin/rooms",
-        element: <AdminRooms />,
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: "/admin/users",
-        element: <Users />,
+        path: "/register",
+        element: <Register />,
       },
       {
-        path: "/admin/settings",
-        element: <Settings />,
+        path: "/rooms",
+        element: <Rooms />,
+      },
+      {
+        path: "/rooms/:id",
+        element: <Room />,
+      },
+      {
+        path: "/my",
+        element: <ClientLayout />,
+        children: [
+          {
+            path: "/my/reservations",
+            element: <ClientReservations />,
+          },
+          {
+            path: "/my/account",
+            element: <Account />,
+          },
+        ],
+      },
+      {
+        path: "/admin",
+        element: <Layout />,
+        children: [
+          {
+            path: "/admin/reservations",
+            element: <Reservations />,
+          },
+          {
+            path: "/admin/rooms",
+            element: <AdminRooms />,
+          },
+          {
+            path: "/admin/users",
+            element: <Users />,
+          },
+          {
+            path: "/admin/settings",
+            element: <Settings />,
+          },
+        ],
       },
     ],
   },
