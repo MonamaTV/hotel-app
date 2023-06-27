@@ -3,7 +3,6 @@ import Nav from "../components/Nav";
 const Home = () => {
   return (
     <>
-      <Nav />
       <section className="px-5 bg-[url('./assets/hero.jpg')] h-[494px] bg-center bg-cover flex flex-col md:flex-col items-center justify-center">
         <div className="text-white md:w-[70%] w-full my-3">
           <h3 className="font-bold text-3xl md:text-5xl">Secure a room</h3>

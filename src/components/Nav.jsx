@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
-    <header className=" py-7 shadow-sm px-5 ">
+    <header className=" py-7 border-slate-100 border-b px-5 ">
       <nav className="flex flex-row container mx-auto justify-between ">
         <h3 className="font-bold md:text-xl text-sm">
           <Link to="/rooms">
@@ -15,7 +15,7 @@ const Nav = () => {
           </li>
           <li>
             <Link
-              className=" md:px-10 px-5 text-xs py-2 rounded-lg text-txt-main"
+              className=" md:px-10 px-5 text-xs py-2 text-txt-main"
               to="/login"
             >
               Login

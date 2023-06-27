@@ -9,16 +9,16 @@ const Users = () => {
       <div className="flex flex-row gap-x-4 justify-end">
         <div className="flex flex-row">
           <input
-            className="px-10 py-2 border rounded-lg text-sm mr-3 outline-none"
+            className="px-10 py-2 border text-sm mr-3 outline-none"
             placeholder="Search users"
           />
-          <button className="px-10 py-2 border rounded-lg flex flex-row  text-secondary items-center text-sm gap-x-3 bg-[#FF030330]">
-            <img className="w-4 rounded-xl" src={filter} alt="" />
+          <button className="px-10 py-2 border flex flex-row  text-secondary items-center text-sm gap-x-3 bg-[#FF030330]">
+            <img className="w-4" src={filter} alt="" />
             Filter
           </button>
         </div>
       </div>
-      <div className="bg-[#9a9a9a21] h-full rounded-3xl mt-4 w-full overflow-auto no-scrollbar ">
+      <div className="bg-[#9a9a9a21] h-full mt-4 w-full overflow-auto no-scrollbar ">
         <table className=" my-2 w-full px-10 border-separate border-spacing-y-3 border-spacing-x-0">
           <thead className="hidden md:table-header-group  w-full text-left px-5 h-14 text-txt-main">
             <tr className="">
@@ -35,7 +35,7 @@ const Users = () => {
               return (
                 <tr>
                   <td className="py-3 border-b">
-                    <img className="w-12 h-12 rounded-full" src={home} alt="" />
+                    <img className="w-12 h-12ll" src={home} alt="" />
                   </td>
                   <td className="py-3 border-b">Castro Solutions</td>
                   <td className="py-3 border-b">5 Aug 2023</td>
@@ -46,11 +46,7 @@ const Users = () => {
                     </div>
                   </td>
                   <td className="py-3 border-b">
-                    <img
-                      className="w-4 rounded-xl object-cover"
-                      src={menu}
-                      alt=""
-                    />
+                    <img className="w-4 object-cover" src={menu} alt="" />
                   </td>
                 </tr>
               );

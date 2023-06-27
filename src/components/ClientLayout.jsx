@@ -6,13 +6,13 @@ const Layout = () => {
       <div className="flex flex-row mx-5 my-5">
         <Link
           to="/my/reservations"
-          className="border-none outline-none bg-secondary rounded-2xl mr-4 text-white px-6 py-2"
+          className="border-none outline-none bg-secondary mr-4 text-white px-6 py-2"
         >
           Reservations
         </Link>
         <Link
           to="/my/account"
-          className="border-none outline-none bg-[#FF030330] rounded-2xl mr-4 text-white px-6 py-2"
+          className="border-none outline-none bg-[#FF030330] mr-4 text-white px-6 py-2"
         >
           Account
         </Link>

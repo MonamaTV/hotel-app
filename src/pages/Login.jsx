@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
+import { useState } from "react";
 const Login = () => {
   const [user, setUser] = useState({
     password: "",
@@ -33,7 +34,7 @@ const Login = () => {
               <span className="text-secondary">Tad</span>Lodge
             </span>
           </p>
-          <button className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full rounded-md text-sm py-3">
+          <button className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full text-sm py-3">
             <FaGoogle />
             Login with Google
           </button>
@@ -44,7 +45,7 @@ const Login = () => {
               </label>
               <input
                 placeholder="Enter your email"
-                className="outline-none text-sm px-4 py-4 bg-[#D3791810] block rounded-lg w-full"
+                className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
                 type="email"
               />
             </div>
@@ -54,11 +55,11 @@ const Login = () => {
               </label>
               <input
                 placeholder="Enter your password"
-                className="outline-none text-sm px-4 py-4 bg-[#D3791810] block rounded-lg w-full"
+                className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
                 type="password"
               />
             </div>
-            <button className="text-sm px-4 py-4 bg-secondary text-white text-center my-3 block rounded-lg w-full">
+            <button className="text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full">
               Login
             </button>
 

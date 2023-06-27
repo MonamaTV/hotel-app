@@ -17,6 +17,14 @@ import ClientReservations from "./pages/client/Reservations";
 import Settings from "./pages/admin/Settings";
 const router = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
     path: "/",
     element: <RootLayout />,
     children: [
@@ -24,14 +32,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
+
       {
         path: "/rooms",
         element: <Rooms />,

@@ -62,7 +62,7 @@ const Register = () => {
           </p>
           <button
             onClick={handleSignInWithPopup}
-            className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full rounded-md text-sm py-3"
+            className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full text-sm py-3"
           >
             <FaGoogle />
             Continue with Google
@@ -76,7 +76,7 @@ const Register = () => {
                 name="name"
                 onChange={handleUserInput}
                 placeholder="Enter your name"
-                className="outline-none text-sm px-4 py-4 bg-[#D3791810] block rounded-lg w-full"
+                className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
                 type="email"
               />
             </div>
@@ -88,7 +88,7 @@ const Register = () => {
                 name="email"
                 onChange={handleUserInput}
                 placeholder="Enter your email"
-                className="outline-none text-sm px-4 py-4 bg-[#D3791810] block rounded-lg w-full"
+                className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
                 type="email"
               />
             </div>
@@ -100,13 +100,13 @@ const Register = () => {
                 name="password"
                 onChange={handleUserInput}
                 placeholder="Enter your password"
-                className="outline-none text-sm px-4 py-4 bg-[#D3791810] block rounded-lg w-full"
+                className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
                 type="password"
               />
             </div>
             <button
               onClick={handleEmailAndPasswordRegister}
-              className="text-sm px-4 py-4 bg-secondary text-white text-center my-3 block rounded-lg w-full"
+              className="text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full"
             >
               Register
             </button>

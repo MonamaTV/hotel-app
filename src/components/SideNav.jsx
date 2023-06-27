@@ -6,7 +6,7 @@ import settingsImg from "../assets/settings.png";
 import roomsImg from "../assets/rooms.png";
 const SideNav = () => {
   return (
-    <nav className="p-10 h-[80vh] w-[400px] bg-[#9a9a9a21] rounded-3xl mx-5">
+    <nav className="p-10 h-[80vh] w-[400px] bg-[#9a9a9a21] mx-5">
       <p className="text-xs text-txt-primary">Overview</p>
       <ul className="list-none">
         <li>
