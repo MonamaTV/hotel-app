@@ -6,14 +6,14 @@ const Reservations = () => {
   return (
     <div>
       <div className="flex flex-row my-4 py-4">
-        <img src={image} className="rounded-xl w-36" />
+        <img src={image} className="w-48" />
         <div className="mx-4 py-4">
           <h4 className="text-green-600">RESERVED</h4>
-          <h4 className="flex flex-row items-center gap-x-3 text-sm">
+          <h4 className="flex flex-row items-center text-txt-primary gap-x-3 text-sm">
             <img className="w-3" src={leave} />
             Expected arrival: 24 Jun 23
           </h4>
-          <h4 className="flex flex-row items-center gap-x-3 text-sm">
+          <h4 className="flex flex-row text-txt-primary items-center gap-x-3 text-sm">
             <img className="w-3" src={depart} />
             Expected departure: 24 Jun 23
           </h4>
@@ -21,14 +21,14 @@ const Reservations = () => {
         </div>
       </div>
       <div className="flex flex-row my-4 py-4">
-        <img src={image} className="rounded-xl w-36" />
+        <img src={image} className="w-48" />
         <div className="mx-4 py-4">
           <h4 className="text-green-600">RESERVED</h4>
-          <h4 className="flex flex-row items-center gap-x-3 text-sm">
+          <h4 className="flex flex-row items-center text-txt-primary gap-x-3 text-sm">
             <img className="w-3" src={leave} />
             Expected arrival: 24 Jun 23
           </h4>
-          <h4 className="flex flex-row items-center gap-x-3 text-sm">
+          <h4 className="flex flex-row text-txt-primary items-center gap-x-3 text-sm">
             <img className="w-3" src={depart} />
             Expected departure: 24 Jun 23
           </h4>
@@ -36,14 +36,14 @@ const Reservations = () => {
         </div>
       </div>
       <div className="flex flex-row my-4 py-4">
-        <img src={image} className="rounded-xl w-36" />
+        <img src={image} className="w-48" />
         <div className="mx-4 py-4">
           <h4 className="text-green-600">RESERVED</h4>
-          <h4 className="flex flex-row items-center gap-x-3 text-sm">
+          <h4 className="flex flex-row items-center text-txt-primary gap-x-3 text-sm">
             <img className="w-3" src={leave} />
             Expected arrival: 24 Jun 23
           </h4>
-          <h4 className="flex flex-row items-center gap-x-3 text-sm">
+          <h4 className="flex flex-row text-txt-primary items-center gap-x-3 text-sm">
             <img className="w-3" src={depart} />
             Expected departure: 24 Jun 23
           </h4>

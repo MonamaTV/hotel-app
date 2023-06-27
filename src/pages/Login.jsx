@@ -46,6 +46,7 @@ const Login = () => {
               <input
                 placeholder="Enter your email"
                 className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
+                autoFocus
                 type="email"
               />
             </div>

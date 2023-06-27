@@ -1,13 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
-import { loginWithPopup, registerUser } from "../app/users";
-import { useState } from "react";
+import { getSignedInUser, loginWithPopup, registerUser } from "../app/users";
+import { useEffect, useState } from "react";
 const Register = () => {
   const [user, setUser] = useState({
     password: "",
     email: "",
     name: "",
   });
+
+  const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(null);
+
+  useEffect(() => {
+    getSignedInUser(setLoggedIn);
+    if (loggedIn) {
+      navigate("/my/account");
+    }
+  }, [loggedIn]);
 
   const handleUserInput = (event) => {
     const value = event.target.value;
@@ -25,11 +35,9 @@ const Register = () => {
     try {
       const response = await registerUser({ ...user });
       if (!response) {
-        console.log(first);
+        console.log(response);
       }
-      console.log(response);
     } catch (error) {
-      // Handle errors
       console.log(error);
     }
   };
@@ -40,10 +48,11 @@ const Register = () => {
     try {
       const response = await loginWithPopup();
       if (!response) {
-        // Error
+        console.log(response);
       }
     } catch (error) {
       // Handle errors
+      console.log(error);
     }
   };
 
