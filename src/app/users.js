@@ -18,6 +18,12 @@ export const getUserRole = async (userID) => {
   if (!docSnap.exists()) throw new Error("Role does not exist");
   return docSnap.data()?.role;
 };
+export const getLoggedInUserRole = async () => {
+  const roleRef = doc(database, "roles", auth.currentUser.uid);
+  const docSnap = await getDoc(roleRef);
+  if (!docSnap.exists()) throw new Error("Role does not exist");
+  return docSnap.data()?.role;
+};
 
 export const addUserRole = async (userID) => {
   const response = await setDoc(doc(database, "roles", userID), {
@@ -77,7 +83,7 @@ export const loginWithPopup = async () => {
 export const updateUser = async ({ name }, file) => {
   let avatarUrl = "";
   if (file) {
-    avatarUrl = await uploadAvatar(file);
+    avatarUrl = await uploadFile(file);
   }
   updateProfile(auth.currentUser, {
     displayName: name,
@@ -85,7 +91,7 @@ export const updateUser = async ({ name }, file) => {
   });
 };
 
-export const uploadAvatar = async (file) => {
+export const uploadFile = async (file) => {
   if (!file) throw new Error("Choose a file to upload");
   const storage = getStorage();
   const imageRef = ref(storage, `avatars/${file.name}`);

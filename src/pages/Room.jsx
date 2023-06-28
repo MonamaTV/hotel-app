@@ -32,6 +32,36 @@ const Room = () => {
             Panoramic Ocean views, 2 Pools, Sun Loungers, Braai Lapa and private
             direct beach
           </p>
+          <p className="text-xs text-txt-secondary font-normal pr-10 my-5">
+            Couples Beachfront Retreat.
+            <br />
+            NO load shedding! Designed as a space for couples. The Pool House on
+            the beach has everything you need for that quality time you need.
+            Unwind and enjoy being in nature on the beachfront.
+            <br />
+            Panoramic Ocean views, 2 Pools, Sun Loungers, Braai Lapa and private
+            direct beach
+          </p>
+          <p className="text-xs text-txt-secondary font-normal pr-10 my-5">
+            Couples Beachfront Retreat.
+            <br />
+            NO load shedding! Designed as a space for couples. The Pool House on
+            the beach has everything you need for that quality time you need.
+            Unwind and enjoy being in nature on the beachfront.
+            <br />
+            Panoramic Ocean views, 2 Pools, Sun Loungers, Braai Lapa and private
+            direct beach
+          </p>
+          <p className="text-xs text-txt-secondary font-normal pr-10 my-5">
+            Couples Beachfront Retreat.
+            <br />
+            NO load shedding! Designed as a space for couples. The Pool House on
+            the beach has everything you need for that quality time you need.
+            Unwind and enjoy being in nature on the beachfront.
+            <br />
+            Panoramic Ocean views, 2 Pools, Sun Loungers, Braai Lapa and private
+            direct beach
+          </p>
         </div>
         <div className="md:mx-4 px-5 font-normal text-4xl flex flex-col md:w-2/3 w-full py-5">
           <h2 className="text-4xl font-bold text-txt-main ">Family</h2>
@@ -53,7 +83,7 @@ const Room = () => {
             <p>Free Wifi</p>
           </div>
 
-          <div className="bg-[#D3791820] px-5 md:px-10 py-6 w-full mt-5 space-y-2">
+          <div className="sticky top-6 bg-[#D3791820] px-5 md:px-10 py-6 w-full mt-5 space-y-2">
             <h3 className="text-lg font-bold text-txt-main">
               R2549.90 per night
             </h3>

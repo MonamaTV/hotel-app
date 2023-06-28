@@ -11,10 +11,12 @@ import RootLayout from "./components/RootLayout";
 import ClientLayout from "./components/ClientLayout";
 import Reservations from "./pages/admin/Reservations";
 import AdminRooms from "./pages/admin/Rooms";
+import AdminRoom from "./pages/admin/Room";
 import Users from "./pages/admin/Users";
 import Account from "./pages/client/Account";
 import ClientReservations from "./pages/client/Reservations";
 import Settings from "./pages/admin/Settings";
+import AuthProvider from "./context/AuthProvider";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -57,7 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <Layout />,
+        element: (
+          <AuthProvider>
+            <Layout />
+          </AuthProvider>
+        ),
         children: [
           {
             path: "/admin/reservations",
@@ -74,6 +80,10 @@ const router = createBrowserRouter([
           {
             path: "/admin/settings",
             element: <Settings />,
+          },
+          {
+            path: "/admin/new",
+            element: <AdminRoom />,
           },
         ],
       },

@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getSignedInUser, loginUser } from "../app/users";
 const Login = () => {
   const [user, setUser] = useState({
     password: "",
@@ -17,8 +18,24 @@ const Login = () => {
     });
   };
 
-  const handleEmailAndPasswordLogin = (event) => {
+  const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(null);
+
+  useEffect(() => {
+    getSignedInUser(setLoggedIn);
+    if (loggedIn) {
+      navigate("/");
+    }
+  }, [loggedIn]);
+
+  const handleEmailAndPasswordLogin = async (event) => {
     event.preventDefault();
+
+    try {
+      await loginUser({ ...user });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleGoogleLogin = (event) => {};
@@ -48,6 +65,8 @@ const Login = () => {
                 className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
                 autoFocus
                 type="email"
+                name="email"
+                onChange={handleUserInput}
               />
             </div>
             <div className="my-2">
@@ -57,10 +76,15 @@ const Login = () => {
               <input
                 placeholder="Enter your password"
                 className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
+                name="password"
                 type="password"
+                onChange={handleUserInput}
               />
             </div>
-            <button className="text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full">
+            <button
+              onClick={handleEmailAndPasswordLogin}
+              className="text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full"
+            >
               Login
             </button>
 

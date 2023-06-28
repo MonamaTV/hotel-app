@@ -96,7 +96,7 @@ const Account = () => {
         <input
           name="email"
           placeholder="castro@test.com"
-          className="my-3 outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
+          className="my-3 outline-none text-sm px-4 py-3 bg-[hsla(31,80%,46%,0)] block w-full"
           type="email"
           readOnly
           value={editUser.email}
@@ -107,7 +107,7 @@ const Account = () => {
           name="name"
           onClick={handleUpdateUser}
           placeholder="Enter your password"
-          className="my-3 outline-none text-xs md:w-96 px-4 py-3 md:w-96 bg-secondary text-white block"
+          className="my-3 outline-none text-xs px-4 py-3 md:w-96 bg-secondary text-white block"
           type="password"
         >
           Save changes

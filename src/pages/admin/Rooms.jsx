@@ -1,15 +1,37 @@
 import home from "../../assets/login.jpg";
 import menu from "../../assets/menu.png";
 import filter from "../../assets/filter.png";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getUserRooms } from "../../app/rooms";
 
 const Rooms = () => {
   const array = Array(10).fill(0);
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const data = await getUserRooms();
+        setRooms(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchRooms();
+  }, []);
+
+  console.log(rooms);
+
   return (
     <div className="h-full w-full flex flex-col">
       <div className="flex flex-row gap-x-4 justify-between">
-        <button className="bg-secondary text-white px-10 py-2 text-sm">
+        <Link
+          to="/admin/new"
+          className="bg-secondary text-white px-10 py-2 text-sm"
+        >
           Add new room
-        </button>
+        </Link>
         <div className="flex flex-row">
           <input
             className="px-10 py-1 border text-sm mr-3 outline-none"
@@ -34,15 +56,15 @@ const Rooms = () => {
             </tr>
           </thead>
           <tbody className="text-txt-secondary text-sm">
-            {array.map((_) => {
+            {rooms.map((room, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td className="py-3 border-b">
-                    <img className="w-20" src={home} alt="" />
+                    <img className="w-20" src={room.images[1]} alt="" />
                   </td>
-                  <td className="py-3 border-b">Single</td>
-                  <td className="py-3 border-b">5 Adults</td>
-                  <td className="py-3 border-b">Floor 4 - AC</td>
+                  <td className="py-3 border-b">{room.type}</td>
+                  <td className="py-3 border-b">{room.guests}</td>
+                  <td className="py-3 border-b">{room.floor} </td>
                   <td className="py-3 border-b">
                     <div className="flex flex-col gap-y-2 text-xs">
                       <p className="text-red-500">Booked</p>

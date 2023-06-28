@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { auth } from "../app/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getUserRole } from "../app/users";
+import Loading from "../components/Loading";
 
 export const locations = ["/admin/"];
 
@@ -14,6 +15,8 @@ export const AuthProvider = ({ children }) => {
   const location = useLocation();
 
   const isAdmin = location.pathname.startsWith("/admin");
+
+  const logoutUser = () => auth.signOut();
 
   useEffect(() => {
     const setUserOnChange = async (user) => {
@@ -34,16 +37,15 @@ export const AuthProvider = ({ children }) => {
     };
 
     const cleanup = auth.onAuthStateChanged(setUserOnChange);
-
     return () => cleanup();
   }, []);
 
-  return (
-    user && (
-      <AuthContext.Provider value={[user, setUser]}>
-        {children}
-      </AuthContext.Provider>
-    )
+  return user ? (
+    <AuthContext.Provider value={[user, setUser, logoutUser]}>
+      {children}
+    </AuthContext.Provider>
+  ) : (
+    <Loading />
   );
 };
 

@@ -5,7 +5,7 @@ const Rooms = () => {
   return (
     <>
       <main className="container md:px-20 mx-auto my-5">
-        <h1 className="mx-4 font-bold text-3xl md:text-4xl">Available rooms</h1>
+        <h1 className="mx-4 font-bold text-3xl md:text-2xl">Available rooms</h1>
         <p className="mx-4 text-gray-500 text-sm">
           From 2 June to 23 July 2023
         </p>

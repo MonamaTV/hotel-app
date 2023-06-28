@@ -1,22 +1,38 @@
 import { Link } from "react-router-dom";
-import { getSignedInUser, getUser } from "../app/users";
+import { getLoggedInUserRole, getSignedInUser, getUser } from "../app/users";
 import { useEffect, useState } from "react";
 
 const Nav = () => {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState("");
   useEffect(() => {
-    getSignedInUser(setUser);
-  }, []);
+    const loadUser = async () => {
+      getSignedInUser(setUser);
+    };
+
+    const getRole = async () => {
+      if (user) {
+        const userRole = await getLoggedInUserRole();
+        setRole(userRole);
+      }
+    };
+
+    loadUser();
+    getRole();
+  }, [user]);
 
   return (
     <header className="container mx-auto py-7 border-slate-100 border-b px-5 ">
       <nav className="flex flex-row container mx-auto justify-between ">
         <h3 className="font-bold md:text-xl text-sm">
-          <Link to="/rooms">
+          <Link to="/">
             <span className="text-secondary">Tad</span>Rooms
           </Link>
         </h3>
-        <ul className="flex flex-row items-center space-x-5">
+        <ul className="flex flex-row items-center space-x-1">
+          <li className=" text-xs text-txt-main">
+            <Link to="/rooms">Rooms</Link>
+          </li>
           {!user ? (
             <>
               <li className="text-xs">
@@ -34,8 +50,8 @@ const Nav = () => {
           ) : (
             <li>
               <Link
-                className="flex flex-row items-center gap-x-3 md:px-10 px-5 text-xs  text-txt-main"
-                to="/my/account"
+                className="flex flex-row items-center gap-x-3 md:px-10 px-5 text-xs text-secondary"
+                to={role === "admin" ? "/admin/reservations" : "/my/account"}
               >
                 {user?.displayName}
                 {user?.photoURL ? (
