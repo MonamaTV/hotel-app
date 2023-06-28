@@ -11,8 +11,9 @@ const Account = () => {
     photoURL: user?.photoURL,
   });
 
+  console.log(user);
+
   const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState("");
 
   const handleFileInput = (e) => {
     const file_ = e.target.files[0];
@@ -60,7 +61,7 @@ const Account = () => {
           {!editUser?.photoURL ? (
             <>
               <img src={upload} className="w-5" alt="" />
-              <small className="text-xs">
+              <small className="hidden md:block text-xs">
                 Drag and drop or choose files to upload{" "}
               </small>
             </>
