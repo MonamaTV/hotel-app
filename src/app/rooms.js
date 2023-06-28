@@ -55,7 +55,7 @@ export const getAllRooms = async () => {
   const querySnapshot = await getDocs(perform);
   const rooms = [];
   querySnapshot.forEach((room) => {
-    // doc.data() is never undefined for query doc snapshots
+    // doc.data() is newver undefined for query doc snapshots
     rooms.push({
       ...room.data(),
       id: room.id,
