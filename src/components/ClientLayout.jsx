@@ -38,7 +38,7 @@ const Layout = () => {
           Logout
         </button>
       </div>
-      <main className="md:px-10 px-5 py-1 h-[80vh] bg-[#9a9a9a21] mx-5">
+      <main className="md:px-10 px-5 py-1 h-[80vh] overflow-auto bg-[#9a9a9a21] mx-5">
         <AuthProvider>
           <Outlet />
         </AuthProvider>
