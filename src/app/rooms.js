@@ -2,6 +2,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { getUser } from "./users";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { database } from "./firebase";
+import { v4 as uuidv4 } from "uuid";
 
 const roomsRef = collection(database, "rooms");
 
@@ -23,7 +24,8 @@ export const uploadFile = async (file) => {
 
   const storage = getStorage();
 
-  const imageRef = ref(storage, `rooms/${file.name}`);
+  const imageID = uuidv4() + "." + file.name.split(".").pop();
+  const imageRef = ref(storage, `rooms/${imageID}`);
 
   await uploadBytes(imageRef, file);
 
@@ -33,7 +35,6 @@ export const uploadFile = async (file) => {
 
 export const addNewRoom = async (room, files) => {
   const urls = await uploadMultipleFiles(files);
-
   if (!urls || urls.length === 0)
     throw new Error("Failed to upload images. Try again");
 
@@ -44,15 +45,14 @@ export const addNewRoom = async (room, files) => {
     images: urls,
     userID,
   };
-
   const response = await addDoc(roomsRef, newRoom);
   return response;
 };
 
 export const getAllRooms = async () => {
-  const perform = query(collection(database, "rooms"));
+  // const perform = query(collection(database, "rooms"));
 
-  const querySnapshot = await getDocs(perform);
+  const querySnapshot = await getDocs(collection(database, "rooms"));
   const rooms = [];
   querySnapshot.forEach((room) => {
     // doc.data() is newver undefined for query doc snapshots

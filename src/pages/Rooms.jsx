@@ -1,7 +1,24 @@
+import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Nav from "../components/Nav";
 import { MdFilterList } from "react-icons/md";
+import { getAllRooms } from "../app/rooms";
 const Rooms = () => {
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const data = await getAllRooms();
+        setRooms(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchRooms();
+  }, []);
+
+  console.log(rooms);
   return (
     <>
       <main className="container md:px-20 mx-auto my-5">
@@ -12,11 +29,10 @@ const Rooms = () => {
         <button className="mx-4 bg-secondary px-4 py-2  text-sm my-4 text-white w-32 flex flex-row items-center text-center justify-center gap-x-2">
           <MdFilterList /> Filter
         </button>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+
+        {rooms.map((room) => (
+          <Card key={room.id} {...room} />
+        ))}
       </main>
     </>
   );

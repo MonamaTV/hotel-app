@@ -51,7 +51,8 @@ const Rooms = () => {
               <th>Bed Type</th>
               <th>Capacity</th>
               <th>Floor</th>
-              <th>Availability</th>
+              <th>Location</th>
+              <th>Price</th>
               <th></th>
             </tr>
           </thead>
@@ -60,15 +61,15 @@ const Rooms = () => {
               return (
                 <tr key={index}>
                   <td className="py-3 border-b">
-                    <img className="w-20" src={room.images[1]} alt="" />
+                    <img className="w-20" src={room.images[0]} alt="" />
                   </td>
                   <td className="py-3 border-b">{room.type}</td>
                   <td className="py-3 border-b">{room.guests}</td>
                   <td className="py-3 border-b">{room.floor} </td>
+                  <td className="py-3 border-b">{room.location} </td>
                   <td className="py-3 border-b">
                     <div className="flex flex-col gap-y-2 text-xs">
-                      <p className="text-red-500">Booked</p>
-                      <p>14 Jul - 23 Aug</p>
+                      <p className="text-secondary">R{room.price}</p>
                     </div>
                   </td>
                   <td className="py-3 border-b">

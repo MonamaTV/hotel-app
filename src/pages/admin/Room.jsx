@@ -17,6 +17,7 @@ const Room = () => {
     floor: "",
     location: "",
     description: "",
+    price: "",
     // benefits: [],
   });
 
@@ -147,6 +148,13 @@ const Room = () => {
             <option value="Studio">Studio</option>
             <option value="Suite">Suite</option>
           </select>
+          <input
+            name="price"
+            onChange={handleRoomInput}
+            placeholder="Price per night"
+            className="my-3 outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
+            type="text"
+          />
           <input
             name="guests"
             onChange={handleRoomInput}
