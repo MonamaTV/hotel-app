@@ -1,6 +1,15 @@
 import { MdLocationPin, MdPark, MdSatellite } from "react-icons/md";
 import { Link } from "react-router-dom";
-const Card = ({ id, location, guests, benefits, images, price }) => {
+const Card = ({
+  id,
+  location,
+  guests,
+  benefits,
+  images,
+  price,
+  type,
+  bedrooms,
+}) => {
   return (
     <Link
       to={`/rooms/${id}`}
@@ -8,9 +17,9 @@ const Card = ({ id, location, guests, benefits, images, price }) => {
     >
       <img className="md:w-[25%] w-full h-[100%]" src={images[0]} alt="" />
       <div className="md:ml-10 mx-3 space-y-2 w-full px-7 py-5 md:py-0">
-        <h3 className="font-bold text-lg text-txt-main">Double</h3>
+        <h3 className="font-bold text-lg text-txt-main">{type}</h3>
         <p className="text-sm text-gray-700">
-          {guests} guests | 1 bedroom | 2 baths
+          {guests} guests | {bedrooms} bedroom | 2 baths
         </p>
         <div className="flex items-center text-txt-primary space-x-5 text-xs">
           <MdLocationPin />

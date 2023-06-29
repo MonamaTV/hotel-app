@@ -18,6 +18,7 @@ const Room = () => {
     location: "",
     description: "",
     price: "",
+    bedrooms: "",
     // benefits: [],
   });
 
@@ -170,13 +171,19 @@ const Room = () => {
             type="text"
           />
           <input
+            name="bedrooms"
+            onChange={handleRoomInput}
+            placeholder="Number of bedrooms"
+            className="my-3 outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
+            type="text"
+          />
+          <input
             name="location"
             onChange={handleRoomInput}
             placeholder="Location"
             className="my-3 outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
             type="text"
           />
-
           <textarea
             name="description"
             onChange={handleRoomInput}

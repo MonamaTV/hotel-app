@@ -1,6 +1,14 @@
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { getUser } from "./users";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { database } from "./firebase";
 import { v4 as uuidv4 } from "uuid";
 
@@ -50,8 +58,6 @@ export const addNewRoom = async (room, files) => {
 };
 
 export const getAllRooms = async () => {
-  // const perform = query(collection(database, "rooms"));
-
   const querySnapshot = await getDocs(collection(database, "rooms"));
   const rooms = [];
   querySnapshot.forEach((room) => {
@@ -83,4 +89,14 @@ export const getUserRooms = async () => {
   });
 
   return rooms;
+};
+export const getRoom = async (roomID) => {
+  const docRef = doc(database, "rooms", roomID);
+
+  const room = await getDoc(docRef);
+
+  return {
+    ...room.data(),
+    id: room.id,
+  };
 };

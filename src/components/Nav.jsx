@@ -30,7 +30,7 @@ const Nav = () => {
           </Link>
         </h3>
         <ul className="flex flex-row items-center space-x-1">
-          <li className=" text-xs text-txt-main">
+          <li className="md:px-10 px-5 text-xs py-2 text-txt-main">
             <Link to="/rooms">Rooms</Link>
           </li>
           {!user ? (
@@ -40,7 +40,7 @@ const Nav = () => {
               </li>
               <li>
                 <Link
-                  className=" md:px-10 px-5 text-xs py-2 text-txt-main"
+                  className=" md:px-10 px-5 text-xs py-2 text-secondary"
                   to="/login"
                 >
                   Login
