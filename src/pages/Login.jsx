@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { getSignedInUser, loginUser } from "../app/users";
+import { getSignedInUser, loginUser, loginWithPopup } from "../app/users";
 const Login = () => {
   const [user, setUser] = useState({
     password: "",
@@ -30,7 +30,7 @@ const Login = () => {
 
   const handleEmailAndPasswordLogin = async (event) => {
     event.preventDefault();
-
+    event.target.disabled = true;
     try {
       await loginUser({ ...user });
     } catch (error) {
@@ -38,7 +38,19 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = (event) => {};
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await loginWithPopup();
+      if (!response) {
+        console.log(response);
+      }
+    } catch (error) {
+      // Handle errors
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-screen h-screen flex flex-row text text-txt-main">
@@ -47,11 +59,16 @@ const Login = () => {
           <h1 className="text-5xl font-bold">Log into your account</h1>
           <p className="text-sm my-4">
             Welcome back to{" "}
-            <span className="font-bold">
-              <span className="text-secondary">Tad</span>Lodge
-            </span>
+            <Link to="/">
+              <span className="font-bold">
+                <span className="text-secondary">Tad</span>Lodge
+              </span>
+            </Link>
           </p>
-          <button className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full text-sm py-3">
+          <button
+            onClick={handleGoogleLogin}
+            className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full text-sm py-3"
+          >
             <FaGoogle />
             Login with Google
           </button>
@@ -83,7 +100,7 @@ const Login = () => {
             </div>
             <button
               onClick={handleEmailAndPasswordLogin}
-              className="text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full"
+              className="disabled:bg-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full"
             >
               Login
             </button>

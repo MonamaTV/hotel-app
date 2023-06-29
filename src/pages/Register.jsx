@@ -62,9 +62,11 @@ const Register = () => {
         <div>
           <h1 className="text-5xl font-bold">
             Welcome to{" "}
-            <span className="font-bold">
-              <span className="text-secondary">Tad</span>Lodge
-            </span>
+            <Link to="/">
+              <span className="font-bold">
+                <span className="text-secondary">Tad</span>Lodge
+              </span>
+            </Link>
           </h1>
           <p className="text-sm my-4">
             Find the best tooms in the North at an affordable prices

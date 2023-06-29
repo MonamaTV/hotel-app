@@ -10,9 +10,11 @@ import {
 } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { getRoom } from "../app/rooms";
+import Modal from "../components/Modal";
 const Room = () => {
   const { roomID } = useParams();
   const [room, setRoom] = useState(null);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -25,12 +27,21 @@ const Room = () => {
     };
     fetchRoom();
   }, []);
+
+  const handleModal = () => {
+    setModal(!modal);
+  };
   return (
     room && (
       <>
+        {modal && <Modal handleModal={handleModal} images={room.images} />}
         <main className="container md:px-20 mx-auto md:my-10 flex md:flex-row flex-col-reverse">
           <div className="mx-4 px-1 font-bold text-4xl md:w-2/3 md:mr-20">
-            <img src={room.images[0]} className="w-full my-3" />
+            <img
+              onClick={handleModal}
+              src={room.images[0]}
+              className="w-full my-3"
+            />
             <div className="flex flex-row">
               {room.images.slice(1, room.images.length).map((image, indx) => (
                 <img key={indx} src={image} className="w-1/6 mr-3 " />

@@ -23,39 +23,37 @@ const Nav = () => {
 
   return (
     <header className="container mx-auto py-7 border-slate-100 border-b px-5 ">
-      <nav className="flex flex-row container mx-auto justify-between ">
+      <nav className="flex flex-row container items-center mx-auto justify-between ">
         <h3 className="font-bold md:text-xl text-sm">
           <Link to="/">
             <span className="text-secondary">Tad</span>Rooms
           </Link>
         </h3>
         <ul className="flex flex-row items-center space-x-1">
-          <li className="md:px-10 px-5 text-xs py-2 text-txt-main">
-            <Link to="/rooms">Rooms</Link>
+          <li className="md:px-5 text-xs py-2 text-txt-main">
+            <Link to="/rooms">Explore</Link>
           </li>
           {!user ? (
             <>
-              <li className="text-xs">
+              <li className="text-xs py-2 md:px-5">
                 <Link to="/register">Register</Link>
               </li>
-              <li>
-                <Link
-                  className=" md:px-10 px-5 text-xs py-2 text-secondary"
-                  to="/login"
-                >
-                  Login
-                </Link>
+              <li className="md:px-5 text-xs py-2 text-secondary">
+                <Link to="/login">Login</Link>
               </li>
             </>
           ) : (
             <li>
               <Link
-                className="flex flex-row items-center gap-x-3 md:px-10 px-5 text-xs text-secondary"
+                className="flex flex-row items-center gap-x-3 md:pr-10 px-5 text-xs text-secondary"
                 to={role === "admin" ? "/admin/reservations" : "/my/account"}
               >
                 {user?.displayName}
                 {user?.photoURL ? (
-                  <img src={user.photoURL} className="rounded-full w-6 h-6" />
+                  <img
+                    src={user.photoURL}
+                    className="rounded-full object-cover w-6 h-6"
+                  />
                 ) : null}
               </Link>
             </li>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import reserveImg from "../assets/reserve.png";
 import usersImg from "../assets/users.png";
 import logoutImg from "../assets/logout.png";
@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 const SideNav = () => {
   const [_, __, logout] = useContext(AuthContext);
+  const { pathname } = useLocation();
   return (
     <nav className="md:p-10 w-full md:h-[80vh] md:w-[400px] md:bg-[#9a9a9a21] md:mx-5">
       <p className="text-xs text-txt-primary hidden md:block">Overview</p>
@@ -15,7 +16,11 @@ const SideNav = () => {
         <li>
           <Link
             to="/admin/reservations"
-            className="my-3 mx-2 text-txt-primary flex flex-row items-center text-sm space-x-5"
+            className={`my-3 mx-2 ${
+              pathname === "/admin/reservations"
+                ? "text-secondary"
+                : "text-txt-primary"
+            } flex flex-row items-center text-sm space-x-5`}
           >
             <img className="w-[20px] h-5" src={reserveImg} alt="Reservations" />
             <span className="hidden md:block">Reservations</span>
@@ -23,7 +28,11 @@ const SideNav = () => {
         </li>
         <li>
           <Link
-            className="my-3 mx-2 text-txt-primary flex flex-row items-center text-sm space-x-5"
+            className={`my-3 mx-2 ${
+              pathname === "/admin/rooms"
+                ? "text-secondary"
+                : "text-txt-primary"
+            } flex flex-row items-center text-sm space-x-5`}
             to="/admin/rooms"
           >
             <img className="w-[20px] h-5" src={roomsImg} alt="Rooms" />
@@ -32,7 +41,11 @@ const SideNav = () => {
         </li>
         <li>
           <Link
-            className="my-3 mx-2 text-txt-primary flex flex-row items-center text-sm space-x-5"
+            className={`my-3 mx-2 ${
+              pathname === "/admin/users"
+                ? "text-secondary"
+                : "text-txt-primary"
+            } flex flex-row items-center text-sm space-x-5`}
             to="/admin/users"
           >
             <img className="w-[20px] h-5" src={usersImg} alt="Users" />
@@ -42,7 +55,11 @@ const SideNav = () => {
         <hr className="hidden md:block bg-txt-secondary h-[2px] " />
         <li>
           <Link
-            className="my-3 mx-2 text-txt-primary flex flex-row items-center text-sm space-x-5"
+            className={`my-3 mx-2 ${
+              pathname === "/admin/settings"
+                ? "text-secondary"
+                : "text-txt-primary"
+            } flex flex-row items-center text-sm space-x-5`}
             to="/admin/settings"
           >
             <img
