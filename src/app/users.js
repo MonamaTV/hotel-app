@@ -72,7 +72,7 @@ export const loginWithPopup = async () => {
 
   if (!response) throw new Error("Login failed");
 
-  const role = await getUserRole(response.user.uid);
+  const role = await addUserRole(response.user.uid);
 
   return {
     ...response,

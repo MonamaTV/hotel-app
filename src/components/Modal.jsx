@@ -30,7 +30,7 @@ const Modal = ({ images, handleModal }) => {
       </button>
       <img
         src={images[current]}
-        className="md:w-[600px] w-full md:mx-10 transition-all"
+        className="md:w-[1000px] w-full md:mx-10 transition-all"
       />
       <button onClick={nextImage} className="w-10 hover:text-secondary p-5">
         {" "}
