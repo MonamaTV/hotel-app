@@ -177,13 +177,19 @@ const Room = () => {
             className="my-3 outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
             type="text"
           />
-          <input
-            name="location"
-            onChange={handleRoomInput}
-            placeholder="Location"
+
+          <select
             className="my-3 outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
             type="text"
-          />
+            name="location"
+            onChange={handleRoomInput}
+          >
+            <option value="-1">Choose location</option>
+            <option value="Pretoria">Pretoria</option>
+            <option value="Johannesburg">Johannesburg</option>
+            <option value="Cape Town">Cape Town</option>
+            <option value="Polokwane">Polokwane</option>
+          </select>
           <textarea
             name="description"
             onChange={handleRoomInput}

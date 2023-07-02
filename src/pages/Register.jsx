@@ -9,6 +9,8 @@ const Register = () => {
     name: "",
   });
 
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(null);
 
@@ -31,14 +33,28 @@ const Register = () => {
 
   const handleEmailAndPasswordRegister = async (event) => {
     event.preventDefault();
-
+    event.target.disabled = true;
     try {
+      if (user.name === "") {
+        setError("Enter a valid name.");
+        event.target.disabled = false;
+        return;
+      }
       const response = await registerUser({ ...user });
       if (!response) {
         console.log(response);
       }
     } catch (error) {
-      console.log(error);
+      if (error.code === "auth/invalid-email") {
+        setError("Enter a valid email.");
+      }
+      if (error.code === "auth/missing-password") {
+        setError("Enter a valid password.");
+      }
+      if (error.code === "auth/cancelled-popup-request") {
+        setError("Please try again!");
+      }
+      event.target.disabled = false;
     }
   };
 
@@ -46,12 +62,21 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await loginWithPopup();
-      if (!response) {
-        console.log(response);
-      }
+      await loginWithPopup();
     } catch (error) {
       // Handle errors
+      if (error.code === "auth/invalid-email") {
+        setError("Enter a valid email.");
+      }
+      if (error.code === "auth/missing-password") {
+        setError("Enter a valid password.");
+      }
+      if (error.code === "auth/cancelled-popup-request") {
+        setError("Please try again!");
+      }
+      if (error.code === "auth/popup-closed-by-user") {
+        setError("Please try again!");
+      }
       console.log(error);
     }
   };
@@ -115,9 +140,10 @@ const Register = () => {
                 type="password"
               />
             </div>
+            {error && <small className="text-red-500">{error}</small>}
             <button
               onClick={handleEmailAndPasswordRegister}
-              className="text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full"
+              className="disabled:bg-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full"
             >
               Register
             </button>

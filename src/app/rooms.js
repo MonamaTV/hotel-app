@@ -57,8 +57,23 @@ export const addNewRoom = async (room, files) => {
   return response;
 };
 
-export const getAllRooms = async () => {
-  const querySnapshot = await getDocs(collection(database, "rooms"));
+export const getAllRooms = async (filter) => {
+  let compound = query(collection(database, "rooms"));
+
+  if (filter?.location && filter.location !== "-1") {
+    compound = query(compound, where("location", "==", filter.location));
+  }
+  if (filter?.type && filter.type !== "-1") {
+    compound = query(compound, where("type", "==", filter.type));
+  }
+  // if (filter?.location && filter.location !== "-1") {
+  //   compound = query(
+  //     collection(database, "rooms"),
+  //     where("location", "==", filter.location)
+  //   );
+  // }
+
+  const querySnapshot = await getDocs(compound);
   const rooms = [];
   querySnapshot.forEach((room) => {
     // doc.data() is newver undefined for query doc snapshots

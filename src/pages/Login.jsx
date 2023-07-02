@@ -8,6 +8,8 @@ const Login = () => {
     email: "",
   });
 
+  const [error, setError] = useState("");
+
   const handleUserInput = (event) => {
     const value = event.target.value;
     const name = event.target.name;
@@ -34,6 +36,13 @@ const Login = () => {
     try {
       await loginUser({ ...user });
     } catch (error) {
+      if (error.code === "auth/invalid-email") {
+        setError("Enter a valid email.");
+      }
+      if (error.code === "auth/missing-password") {
+        setError("Enter a valid password.");
+      }
+      event.target.disabled = false;
       console.log(error);
     }
   };
@@ -42,11 +51,20 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await loginWithPopup();
-      if (!response) {
-        console.log(response);
-      }
+      await loginWithPopup();
     } catch (error) {
+      if (error.code === "auth/invalid-email") {
+        setError("Enter a valid email.");
+      }
+      if (error.code === "auth/missing-password") {
+        setError("Enter a valid password.");
+      }
+      if (error.code === "auth/cancelled-popup-request") {
+        setError("Please try again!");
+      }
+      if (error.code === "auth/popup-closed-by-user") {
+        setError("Please try again!");
+      }
       // Handle errors
       console.log(error);
     }
@@ -80,7 +98,6 @@ const Login = () => {
               <input
                 placeholder="Enter your email"
                 className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
-                autoFocus
                 type="email"
                 name="email"
                 onChange={handleUserInput}
@@ -98,6 +115,7 @@ const Login = () => {
                 onChange={handleUserInput}
               />
             </div>
+            {error && <small className="text-red-500">{error}</small>}
             <button
               onClick={handleEmailAndPasswordLogin}
               className="disabled:bg-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full"

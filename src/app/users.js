@@ -87,7 +87,7 @@ export const updateUser = async ({ name }, file) => {
   }
   updateProfile(auth.currentUser, {
     displayName: name,
-    photoURL: avatarUrl ?? auth.currentUser?.photoURL,
+    photoURL: avatarUrl || auth.currentUser?.photoURL,
   });
 };
 

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import upload from "../../assets/upload.png";
 import { AuthContext } from "../../context/AuthProvider";
 import { updateUser } from "../../app/users";
+import { useNavigate } from "react-router-dom";
 const Account = () => {
   const [user, _] = useContext(AuthContext);
 
@@ -9,9 +10,10 @@ const Account = () => {
     name: user?.displayName,
     email: user?.email,
     photoURL: user?.photoURL,
+    number: "",
   });
 
-  console.log(user);
+  const navigate = useNavigate();
 
   const [file, setFile] = useState(null);
 
@@ -28,13 +30,15 @@ const Account = () => {
     setFile(file_);
   };
 
-  const handleUpdateUser = (e) => {
+  const handleUpdateUser = async (e) => {
     e.preventDefault();
-
+    e.target.disabled = true;
     try {
-      updateUser({ ...editUser }, file);
+      await updateUser({ ...editUser }, file);
+      window.location.reload();
     } catch (error) {
       console.log(error);
+      e.target.disabled = false;
     }
   };
 
@@ -56,7 +60,7 @@ const Account = () => {
         </label>
         <label
           htmlFor="avatar"
-          className=" text-center cursor-pointer flex flex-col justify-center items-center my-3 outline-none text-sm  bg-[#D3791810] w-16 h-16 md:w-44 md:h-44 rounded-full"
+          className=" text-center cursor-pointer flex flex-col justify-center items-center my-3 outline-none text-sm  bg-[#D3791810] w-16 h-16 md:w-22 md:h-22 rounded-full"
         >
           {!editUser?.photoURL ? (
             <>
@@ -91,6 +95,17 @@ const Account = () => {
           onChange={handleUserInput}
         />
         <label className="text-xs text-gray-600" htmlFor="email">
+          Tel.
+        </label>
+        <input
+          name="number"
+          placeholder="Tadima"
+          className="my-3 outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
+          type="text"
+          value={editUser.number}
+          onChange={handleUserInput}
+        />
+        <label className="text-xs text-gray-600" htmlFor="email">
           Email
         </label>
         <input
@@ -107,7 +122,7 @@ const Account = () => {
           name="name"
           onClick={handleUpdateUser}
           placeholder="Enter your password"
-          className="my-3 outline-none text-xs px-4 py-3 md:w-96 bg-secondary text-white block"
+          className="disabled:bg-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed my-3 outline-none text-xs px-4 py-3 md:w-96 bg-secondary text-white block"
           type="password"
         >
           Save changes
