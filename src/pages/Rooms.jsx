@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
-import Nav from "../components/Nav";
 import { MdFilterList } from "react-icons/md";
 import { getAllRooms } from "../app/rooms";
 import Filter from "../components/Filter";
+import { useSearchParams } from "react-router-dom";
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [filter, setFilter] = useState({
@@ -11,6 +11,8 @@ const Rooms = () => {
     type: "-1",
     dates: "-1",
   });
+
+  const [params, _] = useSearchParams();
 
   const handleFilterInputs = (e) => {
     const name = e.target.name;
@@ -29,6 +31,7 @@ const Rooms = () => {
     await fetchRooms();
     setTimeout(() => setFilterModal(!filterModal), 2000);
   };
+
   const fetchRooms = async () => {
     try {
       const data = await getAllRooms(filter);
@@ -48,7 +51,7 @@ const Rooms = () => {
       <main className="container md:px-20 mx-auto my-5">
         <h1 className="mx-4 font-bold text-3xl md:text-2xl">Explore</h1>
         <p className="mx-4 text-gray-500 text-sm">
-          From 2 June to 23 July 2023
+          From {params.get("checkin")} to {params.get("checkout ")}
         </p>
         {filterModal && (
           <Filter
@@ -65,11 +68,8 @@ const Rooms = () => {
         </button>
         <div className="flex flex-col flex-wrap">
           {rooms.map((room) => (
-            <Card key={room.id} {...room} />
+            <Card key={room.id} {...room} params={params.toString()} />
           ))}
-          {/* {rooms.map((room) => (
-            <Card key={room.id} {...room} />
-          ))} */}
         </div>
       </main>
     </>

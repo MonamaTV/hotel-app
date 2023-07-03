@@ -12,10 +12,12 @@ import { useEffect, useState } from "react";
 import { getRoom } from "../app/rooms";
 import Modal from "../components/Modal";
 import Loading from "../components/Loading";
+import { useSearchParams } from "react-router-dom";
 const Room = () => {
   const { roomID } = useParams();
   const [room, setRoom] = useState(null);
   const [modal, setModal] = useState(false);
+  const [params, _] = useSearchParams();
 
   const [loading, setLoading] = useState(true);
 
@@ -98,7 +100,7 @@ const Room = () => {
 
             <div className="sticky top-6 border px-5 md:px-10 py-6 w-[90%] mt-5 space-y-2">
               <h3 className="text-lg font-bold text-txt-main">
-                R2549.90 per night
+                R{room.price} per night
               </h3>
               <p className="text-xs font-light text-txt-secondary">
                 +ZAR 15 taxes and charges
@@ -108,11 +110,17 @@ const Room = () => {
                   type="text"
                   className="outline-none border-none w-full text-xs bg-[#D3791810] block px-5 py-3 my-3"
                   placeholder="12/06/23 - 23/07/23"
+                  defaultValue={
+                    params.get("checkin") + " to " + params.get("checkout")
+                  }
                 />
                 <input
                   type="text"
                   className="outline-none border-none w-full text-xs bg-[#D3791810] block px-5 py-3 my-3"
                   placeholder="2 adults + 1 kid"
+                  defaultValue={`${params.get("adults")} adults + ${params.get(
+                    "children"
+                  )} kids`}
                 />
                 <button
                   onClick={handleReservation}

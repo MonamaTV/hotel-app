@@ -8,15 +8,16 @@ const Card = ({
   images,
   price,
   type,
+  params,
   bedrooms,
 }) => {
   return (
     <Link
-      to={`/rooms/${id}`}
+      to={`/rooms/${id}?${params}`}
       className="flex flex-col md:flex-row items-start mx-4 border-b   md:py-10 pl-0"
     >
       <div className="md:w-[30%]">
-        <img className="w-full" src={images[0]} alt="Image" />
+        <img className="w-full h-[20vh]" src={images[0]} alt="Image" />
         <div className="flex-row space-x-2 mt-3 hidden md:flex">
           {images.map((image, index) => (
             <img

@@ -7,21 +7,22 @@ const Guests = ({
   handleChildrenInput,
 }) => {
   return (
-    <div className="absolute right-[255px] bg-white w-2/6">
+    <div className="absolute right-[708px] bg-white w-[200px] shadow-2xl">
       <p className="text-txt-main my-3 px-6 text-sm">Select Guests</p>
       <form>
         <div className="flex items-center flex-row justify-between my-3 px-6 text-xs text-txt-primary">
           <label htmlFor="adults">Adults</label>
           <div className="space-x-2">
-            <button>
+            <button onClick={(e) => handleAdultsInput(e, "minus")}>
               <CgMathMinus />
             </button>
             <input
-              defaultValue={0}
+              value={adults}
+              readOnly
               className="border-2 border-secondary py-2 w-10 text-center outline-none "
               type="text"
             />
-            <button>
+            <button onClick={(e) => handleAdultsInput(e, "add")}>
               <CgMathPlus />
             </button>
           </div>
@@ -29,15 +30,16 @@ const Guests = ({
         <div className="flex flex-row justify-between my-3 px-6 text-xs text-txt-primary">
           <label htmlFor="adults">Children</label>
           <div className="space-x-2">
-            <button>
+            <button onClick={(e) => handleChildrenInput(e, "minus")}>
               <CgMathMinus />
             </button>
             <input
-              defaultValue={0}
+              value={children}
               className="border-2 border-secondary py-2 w-10 text-center outline-none "
               type="text"
+              readOnly
             />
-            <button>
+            <button onClick={(e) => handleChildrenInput(e, "add")}>
               <CgMathPlus />
             </button>
           </div>
