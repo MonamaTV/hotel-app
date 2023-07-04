@@ -69,6 +69,13 @@ export const getAllRooms = async (filter) => {
   if (filter?.type && filter.type !== "-1") {
     compound = query(compound, where("type", "==", filter.type));
   }
+  if (filter?.guestID && filter.guestID !== "-1") {
+    compound = query(
+      compound,
+      where("reservations", "array-contains", { guestID: filter.guestID })
+    );
+  }
+
   // if (filter?.location && filter.location !== "-1") {
   //   compound = query(
   //     collection(database, "rooms"),

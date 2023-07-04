@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import image from "../../assets/hero.jpg";
 import leave from "../../assets/leave.png";
 import depart from "../../assets/arrival.png";
+import { getClientRersevations } from "../../app/reservations";
 const Reservations = () => {
   const array = Array(10).fill(0);
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      const data = await getClientRersevations();
+      console.log(data);
+    };
+    fetchReservations();
+  }, []);
   return (
     <div>
       {array.map((_, index) => (

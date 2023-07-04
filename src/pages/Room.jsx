@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import image from "../assets/hero.jpg";
 import Nav from "../components/Nav";
 import {
@@ -8,7 +8,7 @@ import {
   MdWifi,
   MdPool,
 } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getRoom } from "../app/rooms";
 import Modal from "../components/Modal";
 import Loading from "../components/Loading";
@@ -16,6 +16,8 @@ import { useSearchParams } from "react-router-dom";
 import Guests from "../components/Guests";
 import { Timestamp } from "@firebase/firestore";
 import { addReservation } from "../app/reservations";
+import { AuthContext } from "../context/AuthProvider";
+import { auth } from "../app/firebase";
 const Room = () => {
   const { roomID } = useParams();
   const [room, setRoom] = useState(null);
@@ -34,6 +36,9 @@ const Room = () => {
     checkOut: params.get("checkout") ?? "",
   });
 
+  const navigate = useNavigate();
+
+  const user = auth.currentUser;
   const handleDateInput = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -86,7 +91,17 @@ const Room = () => {
 
   const handleReservation = async (event) => {
     event.preventDefault();
+    if (!user) {
+      const newQuery =
+        dates.checkIn && dates.checkOut
+          ? `?checkin=${dates.checkIn}&checkout=${dates.checkOut}&adults=${adults}&children=${children}`
+          : "";
 
+      navigate({
+        pathname: "/login",
+        search: newQuery ?? params.toString(),
+      });
+    }
     const newReservation = {
       checkIn: dates.checkIn,
       checkOut: dates.checkOut,
@@ -170,18 +185,24 @@ const Room = () => {
                 +ZAR 15 taxes and charges
               </p>
               <form className="w-full">
-                <input
-                  type="date"
-                  className="inline border outline-none border-none w-[45%] text-xs bg-[#D3791810] text-txt-secondary px-5 py-3 my-3"
-                  placeholder="Check in"
-                  defaultValue={params.get("checkout")}
-                />
-                <input
-                  type="date"
-                  className="inline border mx-1 outline-none border-none w-[45%] text-xs bg-[#D3791810] text-txt-secondary px-5 py-3 my-3"
-                  placeholder="Check out"
-                  defaultValue={params.get("checkin")}
-                />
+                <div className="flex flex-row justify-around">
+                  <input
+                    type="date"
+                    className="inline border-r-2 border-white outline-none w-[50%] text-xs bg-[#D3791810] text-txt-secondary px-5 py-3 my-3"
+                    placeholder="Check in"
+                    onChange={handleDateInput}
+                    name="checkIn"
+                    defaultValue={params.get("checkout")}
+                  />
+                  <input
+                    type="date"
+                    name="checkOut"
+                    onChange={handleDateInput}
+                    className="inline outline-none w-[50%] text-xs bg-[#D3791810] text-txt-secondary px-5 py-3 my-3"
+                    placeholder="Check out"
+                    defaultValue={params.get("checkin")}
+                  />
+                </div>
                 <div className="inline-block relative w-full">
                   <div
                     type="text"
@@ -205,7 +226,7 @@ const Room = () => {
                   onClick={handleReservation}
                   className="w-full px-5 py-3 text-xs  bg-secondary  text-white"
                 >
-                  PAY NOW
+                  {user ? "PAY NOW" : "Login to pay"}
                 </button>
               </form>
             </div>
