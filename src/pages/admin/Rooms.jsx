@@ -21,8 +21,6 @@ const Rooms = () => {
     fetchRooms();
   }, []);
 
-  console.log(rooms);
-
   return (
     <div className="h-full w-full flex flex-col">
       <div className="flex flex-row gap-x-4 justify-between">

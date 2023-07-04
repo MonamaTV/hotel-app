@@ -36,11 +36,17 @@ const Login = () => {
     try {
       await loginUser({ ...user });
     } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        setError("User not registered");
+      }
       if (error.code === "auth/invalid-email") {
         setError("Enter a valid email.");
       }
       if (error.code === "auth/missing-password") {
         setError("Enter a valid password.");
+      }
+      if (error.code === "auth/wrong-password") {
+        setError("Email and password do not match");
       }
       event.target.disabled = false;
       console.log(error);

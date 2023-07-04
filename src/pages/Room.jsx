@@ -13,6 +13,9 @@ import { getRoom } from "../app/rooms";
 import Modal from "../components/Modal";
 import Loading from "../components/Loading";
 import { useSearchParams } from "react-router-dom";
+import Guests from "../components/Guests";
+import { Timestamp } from "@firebase/firestore";
+import { addReservation } from "../app/reservations";
 const Room = () => {
   const { roomID } = useParams();
   const [room, setRoom] = useState(null);
@@ -20,6 +23,48 @@ const Room = () => {
   const [params, _] = useSearchParams();
 
   const [loading, setLoading] = useState(true);
+
+  const [adults, setAdults] = useState(parseInt(params.get("adults") ?? 0));
+  const [children, setChildren] = useState(
+    parseInt(params.get("children") ?? 0)
+  );
+
+  const [dates, setDates] = useState({
+    checkIn: params.get("checkin") ?? "",
+    checkOut: params.get("checkout") ?? "",
+  });
+
+  const handleDateInput = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setDates({
+      ...dates,
+      [name]: value,
+    });
+  };
+  const [showGuests, setShowGuests] = useState(false);
+
+  const handleAdultsInput = (event, option) => {
+    event.preventDefault();
+    if (option === "add") {
+      setAdults(adults + 1);
+    } else {
+      if (adults === 0) return;
+      setAdults(adults - 1);
+    }
+  };
+
+  const handleChildrenInput = (event, option) => {
+    event.preventDefault();
+
+    if (option === "add") {
+      setChildren(children + 1);
+    } else {
+      if (children === 0) return;
+      setChildren(children - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -39,7 +84,26 @@ const Room = () => {
     setModal(!modal);
   };
 
-  const handleReservation = (event) => {};
+  const handleReservation = async (event) => {
+    event.preventDefault();
+
+    const newReservation = {
+      checkIn: dates.checkIn,
+      checkOut: dates.checkOut,
+      reservedAt: Timestamp.now(),
+      adults: adults,
+      children: children,
+      state: "reserverd",
+    };
+
+    try {
+      await addReservation(roomID, newReservation);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(window.history);
 
   if (loading) {
     return <Loading />;
@@ -98,30 +162,45 @@ const Room = () => {
               </div>
             )}
 
-            <div className="sticky top-6 border px-5 md:px-10 py-6 w-[90%] mt-5 space-y-2">
+            <div className="sticky top-6 border px-5 md:px-10 py-6 w-full md:w-[90%] mt-5 space-y-2">
               <h3 className="text-lg font-bold text-txt-main">
-                R{room.price} per night
+                R{room.price.toLocaleString()} per night
               </h3>
               <p className="text-xs font-light text-txt-secondary">
                 +ZAR 15 taxes and charges
               </p>
               <form className="w-full">
                 <input
-                  type="text"
-                  className="outline-none border-none w-full text-xs bg-[#D3791810] block px-5 py-3 my-3"
-                  placeholder="12/06/23 - 23/07/23"
-                  defaultValue={
-                    params.get("checkin") + " to " + params.get("checkout")
-                  }
+                  type="date"
+                  className="inline border outline-none border-none w-[45%] text-xs bg-[#D3791810] text-txt-secondary px-5 py-3 my-3"
+                  placeholder="Check in"
+                  defaultValue={params.get("checkout")}
                 />
                 <input
-                  type="text"
-                  className="outline-none border-none w-full text-xs bg-[#D3791810] block px-5 py-3 my-3"
-                  placeholder="2 adults + 1 kid"
-                  defaultValue={`${params.get("adults")} adults + ${params.get(
-                    "children"
-                  )} kids`}
+                  type="date"
+                  className="inline border mx-1 outline-none border-none w-[45%] text-xs bg-[#D3791810] text-txt-secondary px-5 py-3 my-3"
+                  placeholder="Check out"
+                  defaultValue={params.get("checkin")}
                 />
+                <div className="inline-block relative w-full">
+                  <div
+                    type="text"
+                    onClick={() => setShowGuests(!showGuests)}
+                    className="outline-none border-none w-full text-xs bg-[#D3791810] text-txt-secondary block px-5 py-3 my-3"
+                  >
+                    {adults + children === 0
+                      ? "Number of guests"
+                      : adults + " adults with " + children + " kids"}
+                  </div>
+                  {showGuests && (
+                    <Guests
+                      adults={adults}
+                      children={children}
+                      handleAdultsInput={handleAdultsInput}
+                      handleChildrenInput={handleChildrenInput}
+                    />
+                  )}
+                </div>
                 <button
                   onClick={handleReservation}
                   className="w-full px-5 py-3 text-xs  bg-secondary  text-white"

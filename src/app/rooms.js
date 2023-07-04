@@ -48,10 +48,13 @@ export const addNewRoom = async (room, files) => {
 
   const userID = getUser().uid;
 
+  if (!userID) throw new Error("Failed to authenticate user");
+
   const newRoom = {
     ...room,
     images: urls,
     userID,
+    reservations: [],
   };
   const response = await addDoc(roomsRef, newRoom);
   return response;

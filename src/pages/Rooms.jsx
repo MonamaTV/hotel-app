@@ -50,9 +50,11 @@ const Rooms = () => {
     <>
       <main className="container md:px-20 mx-auto my-5">
         <h1 className="mx-4 font-bold text-3xl md:text-2xl">Explore</h1>
-        <p className="mx-4 text-gray-500 text-sm">
-          From {params.get("checkin")} to {params.get("checkout ")}
-        </p>
+        {params.get("checkout") && params.get("checkin") && (
+          <p className="mx-4 text-gray-500 text-sm">
+            From {params.get("checkin")} to {params.get("checkout")}
+          </p>
+        )}
         {filterModal && (
           <Filter
             handleSearch={handleSearch}

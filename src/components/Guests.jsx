@@ -7,9 +7,9 @@ const Guests = ({
   handleChildrenInput,
 }) => {
   return (
-    <div className="absolute right-[708px] bg-white w-[200px] shadow-2xl">
+    <div className="absolute md:right-[4px] md:-bottom-36 -bottom-22 border bg-white md:w-[200px] w-[350px] shadow-2xl z-40">
       <p className="text-txt-main my-3 px-6 text-sm">Select Guests</p>
-      <form>
+      <div>
         <div className="flex items-center flex-row justify-between my-3 px-6 text-xs text-txt-primary">
           <label htmlFor="adults">Adults</label>
           <div className="space-x-2">
@@ -44,7 +44,7 @@ const Guests = ({
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

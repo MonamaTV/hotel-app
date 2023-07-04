@@ -1,8 +1,27 @@
+import { useEffect, useState } from "react";
 import home from "../../assets/login.jpg";
 import menu from "../../assets/menu.png";
+import { getAdminReservations } from "../../app/reservations";
 
 const Reservations = () => {
   const array = Array(10).fill(0);
+
+  const [reservations, setReservations] = useState([]);
+
+  const fetchReservations = async () => {
+    try {
+      const data = await getAdminReservations();
+      setReservations(data);
+    } catch (error) {
+      console.log(error);
+      setReservations([]);
+    }
+  };
+  useEffect(() => {
+    fetchReservations();
+  }, []);
+
+  console.log(reservations);
   return (
     <div className="h-full w-full flex flex-col">
       <div className="flex flex-row gap-x-4">
@@ -29,26 +48,30 @@ const Reservations = () => {
             </tr>
           </thead>
           <tbody className="text-txt-secondary text-sm">
-            {array.map((_) => {
-              return (
-                <tr>
-                  <td className="py-3 border-b">
-                    <img className="w-20" src={home} alt="" />
-                  </td>
-                  <td className="py-3 border-b">Single</td>
-                  <td className="py-3 border-b">5 Adults</td>
-                  <td className="py-3 border-b">Floor 4 - AC</td>
-                  <td className="py-3 border-b">
-                    <div className="flex flex-col gap-y-2 text-xs">
-                      <p>23 June 2023</p>
-                      <p>14 July 2023</p>
-                    </div>
-                  </td>
-                  <td className="py-3 border-b">
-                    <img className="w-4" src={menu} alt="" />
-                  </td>
-                </tr>
-              );
+            {reservations.map((room) => {
+              return room.reserves.map((reserve) => {
+                return (
+                  <tr key={reserve.reservationID}>
+                    <td className="py-3 border-b">
+                      <img className="w-20" src={room.image} alt="" />
+                    </td>
+                    <td className="py-3 border-b">{room.type}</td>
+                    <td className="py-3 border-b">
+                      {reserve.adults} Adults with {reserve.chidlren} kids
+                    </td>
+                    <td className="py-3 border-b">{room.type}</td>
+                    <td className="py-3 border-b">
+                      <div className="flex flex-col gap-y-2 text-xs">
+                        <p>{reserve.checkIn}</p>
+                        <p>{reserve.checkOut}</p>
+                      </div>
+                    </td>
+                    <td className="py-3 border-b">
+                      <img className="w-4" src={menu} alt="" />
+                    </td>
+                  </tr>
+                );
+              });
             })}
           </tbody>
         </table>

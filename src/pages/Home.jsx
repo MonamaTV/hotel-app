@@ -74,22 +74,25 @@ const Home = () => {
             onFocus={(e) => (e.target.type = "date")}
             onChange={handleDateInput}
           />
-          <div
-            className="inline-block text-center bg-white text-txt-main text-sm w-full my-1 md:w-[200px] mr-1 border-none outline-none px-4 py-3"
-            type="number"
-            onClick={() => setShowGuests(!showGuests)}
-            placeholder="Number of guests"
-          >
-            {adults + children === 0 ? "Number of guests" : adults + children}
+          <div className="w-full relative inline">
+            <div
+              className="relative inline-block text-center bg-white text-txt-secondary text-sm w-full my-1 md:w-[200px] mr-1 border-none outline-none px-4 py-3"
+              type="number"
+              onClick={() => setShowGuests(!showGuests)}
+              placeholder="Number of guests"
+            >
+              {adults + children === 0 ? "Number of guests" : adults + children}
+            </div>
+            {showGuests && (
+              <Guests
+                adults={adults}
+                children={children}
+                handleAdultsInput={handleAdultsInput}
+                handleChildrenInput={handleChildrenInput}
+              />
+            )}
           </div>
-          {showGuests && (
-            <Guests
-              adults={adults}
-              children={children}
-              handleAdultsInput={handleAdultsInput}
-              handleChildrenInput={handleChildrenInput}
-            />
-          )}
+
           <button
             onClick={handleSearch}
             className="md:w-[150px] my-1 w-full text-sm text-white bg-secondary px-3 py-3"

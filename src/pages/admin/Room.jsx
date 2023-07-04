@@ -89,6 +89,7 @@ const Room = () => {
     } catch (error) {
       console.log(error);
     }
+    event.target.disabled = false;
   };
 
   return (
