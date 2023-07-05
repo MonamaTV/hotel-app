@@ -75,16 +75,7 @@ export const getAdminReservations = async (filters) => {
     }
   });
 
-  // rooms.forEach((room) => {
-  //   reservations.push({
-  //     roomID: room.id,
-  //     image: room.images[0],
-  //     type: room.type,
-  //     reserves: room.reservations,
-  //   });
-  // });
-
   return reservations;
 };
 
-export const cancelRersevation = () => {};
+export const cancelRersevation = (reservationID) => {};
