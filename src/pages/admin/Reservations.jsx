@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import home from "../../assets/login.jpg";
 import menu from "../../assets/menu.png";
 import { getAdminReservations } from "../../app/reservations";
 
 const Reservations = () => {
-  const array = Array(10).fill(0);
-
   const [reservations, setReservations] = useState([]);
 
   const fetchReservations = async () => {
@@ -48,30 +45,30 @@ const Reservations = () => {
             </tr>
           </thead>
           <tbody className="text-txt-secondary text-sm">
-            {reservations.map((room) => {
-              return room.reserves.map((reserve) => {
-                return (
-                  <tr key={reserve.reservationID}>
-                    <td className="py-3 border-b">
-                      <img className="w-20" src={room.image} alt="" />
-                    </td>
-                    <td className="py-3 border-b">{room.type}</td>
-                    <td className="py-3 border-b">
-                      {reserve.adults} Adults with {reserve.chidlren} kids
-                    </td>
-                    <td className="py-3 border-b">{room.type}</td>
-                    <td className="py-3 border-b">
-                      <div className="flex flex-col gap-y-2 text-xs">
-                        <p>{reserve.checkIn}</p>
-                        <p>{reserve.checkOut}</p>
-                      </div>
-                    </td>
-                    <td className="py-3 border-b">
-                      <img className="w-4" src={menu} alt="" />
-                    </td>
-                  </tr>
-                );
-              });
+            {reservations.map((reservation) => {
+              return (
+                <tr key={reservation.id}>
+                  <td className="py-3 border-b">
+                    <img className="w-20" src={reservation.image} alt="" />
+                  </td>
+                  <td className="py-3 border-b">{reservation.roomType}</td>
+                  <td className="py-3 border-b">
+                    {reservation.adults} Adults with {reservation.children} kids
+                  </td>
+                  <td className="py-3 border-b">
+                    {reservation.floor || "No floor available"}
+                  </td>
+                  <td className="py-3 border-b">
+                    <div className="flex flex-col gap-y-2 text-xs">
+                      <p>{reservation.checkIn}</p>
+                      <p>{reservation.checkOut}</p>
+                    </div>
+                  </td>
+                  <td className="py-3 border-b">
+                    <img className="w-4" src={menu} alt="" />
+                  </td>
+                </tr>
+              );
             })}
           </tbody>
         </table>

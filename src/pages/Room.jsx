@@ -109,16 +109,18 @@ const Room = () => {
       adults: adults,
       children: children,
       state: "reserverd",
+      roomID: roomID,
+      roomType: room.type,
+      floor: room.floor,
+      image: room.images[0],
     };
 
     try {
-      await addReservation(roomID, newReservation);
+      await addReservation(newReservation);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // console.log(window.history);
 
   if (loading) {
     return <Loading />;

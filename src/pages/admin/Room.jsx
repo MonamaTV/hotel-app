@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import upload from "../../assets/upload.png";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
-import { addNewRoom, uploadMultipleFiles } from "../../app/rooms";
+import { addNewRoom } from "../../app/rooms";
 
 const Room = () => {
   const [files, setFiles] = useState([]);
@@ -19,7 +19,6 @@ const Room = () => {
     description: "",
     price: "",
     bedrooms: "",
-    // benefits: [],
   });
 
   const [benefits, setBenefits] = useState([]);

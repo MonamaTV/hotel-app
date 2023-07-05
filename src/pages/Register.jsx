@@ -148,7 +148,7 @@ const Register = () => {
               Register
             </button>
 
-            <Link className="text-gray-400 text-xs" to="/login">
+            <Link className="underline text-gray-400 text-xs" to="/login">
               Have an account? Login
             </Link>
           </form>
