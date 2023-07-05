@@ -1,37 +1,68 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import image from "../../assets/hero.jpg";
 import leave from "../../assets/leave.png";
 import depart from "../../assets/arrival.png";
-import { getClientRersevations } from "../../app/reservations";
+import {
+  cancelReservation,
+  getClientRersevations,
+} from "../../app/reservations";
+import { Link } from "react-router-dom";
 const Reservations = () => {
-  const array = Array(10).fill(0);
-
+  const [reservations, setReservations] = useState([]);
   useEffect(() => {
     const fetchReservations = async () => {
       const data = await getClientRersevations();
-      console.log(data);
+      setReservations(data);
     };
     fetchReservations();
   }, []);
+
+  const handleCancelReservation = async (reservationID) => {
+    try {
+      if (confirm("Sure you want to cancel reservation?"))
+        await cancelReservation(reservationID);
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
-      {array.map((_, index) => (
+      {reservations.map((reservation) => (
         <div
-          key={index}
-          className="flex md:flex-row flex-col my-4 py-4 border-b"
+          key={reservation.id}
+          className=" flex md:flex-row flex-col my-4 py-4 border-b"
         >
-          <img src={image} className="md:w-48 w-24" />
+          <Link to={"/rooms/" + reservation.roomID} className="md:w-48 h-36">
+            <img src={reservation.image} className="md:w-48  h-36" />
+          </Link>
           <div className="md:mx-4 py-4">
-            <h4 className="text-green-600">RESERVED</h4>
+            <h4
+              className={
+                reservation.state === "reserved"
+                  ? "text-green-600 text-xl"
+                  : "text-red-600 text-xl"
+              }
+            >
+              {reservation.state === "reserved" ? "RESERVED" : "CANCELLED"}
+            </h4>
             <h4 className="flex flex-row items-center text-txt-primary gap-x-3 text-sm">
               <img className="w-3" src={leave} />
-              Expected arrival: 24 Jun 23
+              Expected arrival: {reservation.checkIn}
             </h4>
             <h4 className="flex flex-row text-txt-primary items-center gap-x-3 text-sm">
               <img className="w-3" src={depart} />
-              Expected departure: 24 Jun 23
+              Expected departure: {reservation.checkOut}
             </h4>
-            <button className="text-sm text-red-500">Cancel</button>
+            {reservation.state === "reserved" && (
+              <button
+                onClick={() => handleCancelReservation(reservation.id)}
+                className="text-sm text-red-500"
+              >
+                Cancel
+              </button>
+            )}
           </div>
         </div>
       ))}
