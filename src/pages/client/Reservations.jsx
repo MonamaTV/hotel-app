@@ -32,10 +32,10 @@ const Reservations = () => {
       {reservations.map((reservation) => (
         <div
           key={reservation.id}
-          className="items-center flex md:flex-row flex-col my-4 py-4 border-b"
+          className=" flex md:flex-row flex-col my-4 py-4 border-b"
         >
-          <Link to={"/rooms/" + reservation.roomID}>
-            <img src={reservation.image} className="md:w-48 w-24 h-36" />
+          <Link to={"/rooms/" + reservation.roomID} className="md:w-48 h-36">
+            <img src={reservation.image} className="md:w-48  h-36" />
           </Link>
           <div className="md:mx-4 py-4">
             <h4
