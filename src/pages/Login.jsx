@@ -22,7 +22,6 @@ const Login = () => {
 
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(null);
-
   useEffect(() => {
     getSignedInUser(setLoggedIn);
     if (loggedIn) {

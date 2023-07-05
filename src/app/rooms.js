@@ -76,13 +76,6 @@ export const getAllRooms = async (filter) => {
     );
   }
 
-  // if (filter?.location && filter.location !== "-1") {
-  //   compound = query(
-  //     collection(database, "rooms"),
-  //     where("location", "==", filter.location)
-  //   );
-  // }
-
   const querySnapshot = await getDocs(compound);
   const rooms = [];
   querySnapshot.forEach((room) => {
@@ -117,7 +110,6 @@ export const getUserRooms = async () => {
 };
 export const getRoom = async (roomID) => {
   const docRef = doc(database, "rooms", roomID);
-
   const room = await getDoc(docRef);
 
   return {

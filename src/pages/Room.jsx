@@ -1,6 +1,4 @@
 import { useNavigate, useParams } from "react-router";
-import image from "../assets/hero.jpg";
-import Nav from "../components/Nav";
 import {
   MdLocationPin,
   MdPark,
@@ -8,7 +6,7 @@ import {
   MdWifi,
   MdPool,
 } from "react-icons/md";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getRoom } from "../app/rooms";
 import Modal from "../components/Modal";
 import Loading from "../components/Loading";
@@ -16,7 +14,6 @@ import { useSearchParams } from "react-router-dom";
 import Guests from "../components/Guests";
 import { Timestamp } from "@firebase/firestore";
 import { addReservation } from "../app/reservations";
-import { AuthContext } from "../context/AuthProvider";
 import { auth } from "../app/firebase";
 const Room = () => {
   const { roomID } = useParams();
@@ -128,7 +125,7 @@ const Room = () => {
     room && (
       <>
         {modal && <Modal handleModal={handleModal} images={room.images} />}
-        <main className="container md:px-20 mx-auto md:my-10 flex md:flex-row flex-col-reverse">
+        <main className="sm:w-[95vw]  md:px-20 mx-auto md:my-10 flex md:flex-row flex-col-reverse">
           <div className="mx-4 px-1 font-bold text-4xl md:w-2/3 md:mr-10">
             <img
               onClick={handleModal}
@@ -211,7 +208,7 @@ const Room = () => {
                   >
                     {adults + children === 0
                       ? "Number of guests"
-                      : adults + " adults with " + children + " kids"}
+                      : adults + " adults with " + children + " kid(s)"}
                   </div>
                   {showGuests && (
                     <Guests
