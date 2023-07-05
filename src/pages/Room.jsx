@@ -18,6 +18,7 @@ import { Timestamp } from "@firebase/firestore";
 import { addReservation } from "../app/reservations";
 import { AuthContext } from "../context/AuthProvider";
 import { auth } from "../app/firebase";
+import Error from "../components/Error";
 const Room = () => {
   const { roomID } = useParams();
   const [room, setRoom] = useState(null);
@@ -71,6 +72,10 @@ const Room = () => {
     }
   };
 
+  const handleModal = () => {
+    setModal(!modal);
+  };
+
   useEffect(() => {
     const fetchRoom = async () => {
       setLoading(true);
@@ -79,15 +84,12 @@ const Room = () => {
         setRoom(data);
       } catch (error) {
         console.log(error);
+        setRoom(null);
       }
       setLoading(false);
     };
     fetchRoom();
   }, []);
-
-  const handleModal = () => {
-    setModal(!modal);
-  };
 
   const handleReservation = async (event) => {
     event.preventDefault();
@@ -97,6 +99,8 @@ const Room = () => {
           ? `?checkin=${dates.checkIn}&checkout=${dates.checkOut}&adults=${adults}&children=${children}`
           : "";
 
+      event.target.disabled = true;
+      event.target.textContent = "Reserving room...";
       navigate({
         pathname: "/login",
         search: newQuery ?? params.toString(),
@@ -117,6 +121,9 @@ const Room = () => {
 
     try {
       await addReservation(newReservation);
+      navigate({
+        pathname: "/my/reservations",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -124,6 +131,12 @@ const Room = () => {
 
   if (loading) {
     return <Loading />;
+  }
+
+  console.log(room);
+
+  if (!room) {
+    return <Error />;
   }
 
   return (
@@ -226,7 +239,9 @@ const Room = () => {
                 </div>
                 <button
                   onClick={handleReservation}
-                  className="w-full px-5 py-3 text-xs  bg-secondary  text-white"
+                  className="disabled:bg-gray-300
+                  disabled:text-gray-400
+                  disabled:cursor-not-allowed w-full px-5 py-3 text-xs  bg-secondary  text-white"
                 >
                   {user ? "PAY NOW" : "Login to pay"}
                 </button>

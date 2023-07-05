@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import image from "../../assets/hero.jpg";
 import leave from "../../assets/leave.png";
 import depart from "../../assets/arrival.png";
-import { getClientRersevations } from "../../app/reservations";
+import {
+  cancelReservation,
+  getClientRersevations,
+} from "../../app/reservations";
+import { Link } from "react-router-dom";
 const Reservations = () => {
-  const array = Array(10).fill(0);
   const [reservations, setReservations] = useState([]);
   useEffect(() => {
     const fetchReservations = async () => {
@@ -13,6 +16,17 @@ const Reservations = () => {
     };
     fetchReservations();
   }, []);
+
+  const handleCancelReservation = async (reservationID) => {
+    try {
+      if (confirm("Sure you want to cancel reservation?"))
+        await cancelReservation(reservationID);
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       {reservations.map((reservation) => (
@@ -20,9 +34,19 @@ const Reservations = () => {
           key={reservation.id}
           className="items-center flex md:flex-row flex-col my-4 py-4 border-b"
         >
-          <img src={reservation.image} className="md:w-48 w-24 h-36" />
+          <Link to={"/rooms/" + reservation.roomID}>
+            <img src={reservation.image} className="md:w-48 w-24 h-36" />
+          </Link>
           <div className="md:mx-4 py-4">
-            <h4 className="text-green-600 text-xl">RESERVED</h4>
+            <h4
+              className={
+                reservation.state === "reserved"
+                  ? "text-green-600 text-xl"
+                  : "text-red-600 text-xl"
+              }
+            >
+              {reservation.state === "reserved" ? "RESERVED" : "CANCELLED"}
+            </h4>
             <h4 className="flex flex-row items-center text-txt-primary gap-x-3 text-sm">
               <img className="w-3" src={leave} />
               Expected arrival: {reservation.checkIn}
@@ -31,7 +55,14 @@ const Reservations = () => {
               <img className="w-3" src={depart} />
               Expected departure: {reservation.checkOut}
             </h4>
-            <button className="text-sm text-red-500">Cancel</button>
+            {reservation.state === "reserved" && (
+              <button
+                onClick={() => handleCancelReservation(reservation.id)}
+                className="text-sm text-red-500"
+              >
+                Cancel
+              </button>
+            )}
           </div>
         </div>
       ))}

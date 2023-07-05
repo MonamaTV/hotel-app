@@ -1,7 +1,16 @@
-import { collection, addDoc, getDocs, query, where } from "@firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  doc,
+} from "@firebase/firestore";
 import { database } from "./firebase";
 import { getUser } from "./users";
 import { getAllRooms, getUserRooms } from "./rooms";
+import { data } from "autoprefixer";
 
 const reservationsRef = collection(database, "reservations");
 
@@ -52,6 +61,8 @@ export const getClientRersevations = async (filters) => {
 export const getAdminReservations = async (filters) => {
   const roomsIDs = (await getAllRooms()).map((room) => room.id);
 
+  console.log(roomsIDs);
+
   const reservations = [];
   const compoundQuery = query(reservationsRef, where("roomID", "in", roomsIDs));
 
@@ -78,4 +89,15 @@ export const getAdminReservations = async (filters) => {
   return reservations;
 };
 
-export const cancelRersevation = (reservationID) => {};
+export const cancelReservation = async (reservationID) => {
+  if (!reservationID) throw new Error("No reservation of that ID");
+
+  const response = await updateDoc(
+    doc(database, "reservations", reservationID),
+    {
+      state: "cancelled",
+    }
+  );
+
+  return response;
+};

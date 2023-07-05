@@ -119,6 +119,8 @@ export const getRoom = async (roomID) => {
   const docRef = doc(database, "rooms", roomID);
 
   const room = await getDoc(docRef);
+  console.log(room.exists());
+  if (!room.exists()) throw new Error("No room available");
 
   return {
     ...room.data(),
