@@ -18,7 +18,6 @@ const Reservations = () => {
     fetchReservations();
   }, []);
 
-  console.log(reservations);
   return (
     <div className="h-full w-full flex flex-col">
       <div className="flex flex-row gap-x-4">
@@ -27,9 +26,6 @@ const Reservations = () => {
         </button>
         <button className="bg-[#FF030330] text-white px-10 py-2 text-sm">
           Cancelled
-        </button>
-        <button className="bg-[#FF030330] text-white px-10 py-2 text-sm">
-          Available
         </button>
       </div>
       <div className="bg-[#9a9a9a21] h-full mt-4 w-full overflow-auto no-scrollbar ">

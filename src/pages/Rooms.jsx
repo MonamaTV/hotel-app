@@ -4,6 +4,7 @@ import { MdFilterList } from "react-icons/md";
 import { getAllRooms } from "../app/rooms";
 import Filter from "../components/Filter";
 import { useSearchParams } from "react-router-dom";
+import Loading from "../components/Loading";
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [filter, setFilter] = useState({
@@ -11,6 +12,8 @@ const Rooms = () => {
     type: "-1",
     dates: "-1",
   });
+
+  const [loading, setLoading] = useState(true);
 
   const [params, _] = useSearchParams();
 
@@ -33,12 +36,14 @@ const Rooms = () => {
   };
 
   const fetchRooms = async () => {
+    setLoading(true);
     try {
       const data = await getAllRooms(filter);
       setRooms(data);
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -46,6 +51,11 @@ const Rooms = () => {
   }, []);
 
   const [filterModal, setFilterModal] = useState(false);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <main className="container md:px-20 mx-auto my-5">
