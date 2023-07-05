@@ -20,21 +20,31 @@ export const addReservation = async (reservation) => {
 };
 
 export const getClientRersevations = async (filters) => {
-  const reservations = [];
   const userID = getUser().uid;
   if (!userID) throw new Error("Failed to authenticate user");
-  const rooms = await getAllRooms({ guestID: userID });
 
-  if (!rooms) throw new Error("No reservations");
+  const reservations = [];
+  const compoundQuery = query(reservationsRef, where("userID", "==", userID));
 
-  //   rooms.forEach((room) => {
-  //     reservations.push({
-  //       roomID: room.id,
-  //       image: room.images[0],
-  //       type: room.type,
-  //       reserves: room.reservations,
-  //     });
-  //   });
+  if (filters?.state && filters.state !== "-1") {
+    compoundQuery = query(
+      compoundQuery,
+      where("state", "==", filters.cancelled)
+    );
+  }
+
+  const response = await getDocs(compoundQuery);
+
+  if (!response) throw new Error("No reservations");
+
+  response.forEach((reservation) => {
+    if (reservation.exists()) {
+      reservations.push({
+        id: reservation.id,
+        ...reservation.data(),
+      });
+    }
+  });
 
   return reservations;
 };
