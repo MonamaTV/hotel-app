@@ -123,6 +123,9 @@ const ConfirmPassword = () => {
             An email has been sent to your email. Carefully follow the
             instructions to change your password.
           </h4>
+          <Link className="text-gray-400 text-xs underline" to="/">
+            Home
+          </Link>
         </div>
       </div>
       <div className="hidden md:block w-[50%] bg-[url('./assets/login.jpg')] h-full bg-cover"></div>
