@@ -4,6 +4,8 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
+  sendPasswordResetEmail,
+  confirmPasswordReset,
 } from "firebase/auth";
 import { auth, database } from "./firebase";
 
@@ -106,4 +108,16 @@ export const getSignedInUser = (callback) => {
 };
 export const getUser = () => {
   return auth.currentUser;
+};
+
+export const forgotPassword = async (email) => {
+  const response = await sendPasswordResetEmail(auth, email);
+
+  return response;
+};
+
+export const confirmNewPassword = async (code, newPassword) => {
+  const response = await confirmPasswordReset(auth, code, newPassword);
+
+  return response;
 };

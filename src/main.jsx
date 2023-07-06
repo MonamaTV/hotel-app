@@ -17,6 +17,8 @@ import Account from "./pages/client/Account";
 import ClientReservations from "./pages/client/Reservations";
 import Settings from "./pages/admin/Settings";
 import AuthProvider from "./context/AuthProvider";
+import Forgot from "./pages/Forgot";
+import ConfirmPassword from "./pages/ConfirmPassword";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/forgot",
+    element: <Forgot />,
+  },
+  {
+    path: "/confirm-password",
+    element: <ConfirmPassword />,
   },
   {
     path: "/",

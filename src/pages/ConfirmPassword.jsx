@@ -2,10 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { getSignedInUser, loginUser, loginWithPopup } from "../app/users";
-const Login = () => {
+const ConfirmPassword = () => {
   const [user, setUser] = useState({
     password: "",
-    email: "",
+    code: "",
   });
 
   const [error, setError] = useState("");
@@ -75,36 +75,27 @@ const Login = () => {
     }
   };
 
+  const handlePasswordReset = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="w-screen h-screen flex flex-row text text-txt-main">
       <div className="w-full px-5 md:w-[50%] h-full flex flex-col items-center justify-center">
-        <div>
-          <h1 className="text-5xl font-bold">Log into your account</h1>
-          <p className="text-sm my-4">
-            Welcome back to{" "}
-            <Link to="/">
-              <span className="font-bold">
-                <span className="text-secondary">Tad</span>Lodge
-              </span>
-            </Link>
-          </p>
-          <button
-            onClick={handleGoogleLogin}
-            className="gap-x-3 flex flex-row justify-center items-center mt-10 mb-5 text-gray-400 border border-gray-400 w-full text-sm py-3"
-          >
-            <FaGoogle />
-            Login with Google
-          </button>
-          <form>
+        <div className="px-10">
+          <h1 className="text-5xl font-bold text-secondary">Password reset</h1>
+          <p className="text-sm my-4">Let's reset your password</p>
+
+          {/* <form>
             <div className="my-2">
               <label className="text-gray-600" htmlFor="email">
-                Email
+                Code
               </label>
               <input
-                placeholder="Enter your email"
+                placeholder="Enter code sent to your email"
                 className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
-                type="email"
-                name="email"
+                type="text"
+                name="code"
                 onChange={handleUserInput}
               />
             </div>
@@ -113,28 +104,25 @@ const Login = () => {
                 Password
               </label>
               <input
-                placeholder="Enter your password"
+                placeholder="Enter new password"
                 className="outline-none text-sm px-4 py-3 bg-[#D3791810] block w-full"
                 name="password"
                 type="password"
                 onChange={handleUserInput}
               />
-              <Link className="text-gray-400 text-xs underline" to="/forgot">
-                Forgot password?
-              </Link>
             </div>
             {error && <small className="text-red-500">{error}</small>}
             <button
-              onClick={handleEmailAndPasswordLogin}
+              onClick={handlePasswordReset}
               className="disabled:bg-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed text-sm px-4 py-3 bg-secondary text-white text-center my-3 block w-full"
             >
-              Login
+              Reset
             </button>
-
-            <Link className="text-gray-400 text-xs underline" to="/register">
-              Don't have an account? Register
-            </Link>
-          </form>
+          </form> */}
+          <h4>
+            An email has been sent to your email. Carefully follow the
+            instructions to change your password.
+          </h4>
         </div>
       </div>
       <div className="hidden md:block w-[50%] bg-[url('./assets/login.jpg')] h-full bg-cover"></div>
@@ -142,4 +130,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ConfirmPassword;
